@@ -69,16 +69,16 @@ def peakWidth(weight,plot=False,method='Spline'):
 
             return FWHM
         
-    else if method is 'Squared':
+    elif method is 'Squared':
             
         FWHM   = []
-
+        sq = []
         try:
             weight.shape[1]
 
             for i in range(weight.shape[0]):
-                sq[i] = np.sum(weight[i]**2)/(np.sum(weight[i])**2)
-                FWHM.append(1./sq)
+                sq.append(np.sum(weight[i]**2)/(np.sum(weight[i])**2))
+                FWHM.append(1./sq[i])
 
             if plot is True:
                 #Show the roots for visual verification
@@ -92,8 +92,8 @@ def peakWidth(weight,plot=False,method='Spline'):
             weight = np.array([weight])
 
             for i in range(weight.shape[0]):
-                sq[i] = np.sum(weight[i]**2)/(np.sum(weight[i])**2)
-                FWHM.append(1./sq)
+                sq.append(np.sum(weight[i]**2)/(np.sum(weight[i])**2))
+                FWHM.append(1./sq[i])
 
             if plot is True:
                 #Show the roots for visual verification
