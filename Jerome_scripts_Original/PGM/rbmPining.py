@@ -251,8 +251,10 @@ class RBM(pgm.PGM):
 
     def fit(self,data, batch_size = 100, learning_rate = None, extra_params = None, init='independent', optimizer='SGD', batch_norm=None,CD = False,N_PT = 1, N_MC = 1, nchains = None, n_iter = 10,
             lr_decay = True,lr_final=None,decay_after = 0.5,l1 = 0, l1b = 0, l1c=0, l2 = 0,l2_fields =0,no_fields = False,weights = None,
-            update_betas =None, record_acceptance = None, shuffle_data = True,epsilon=  1e-6, verbose = 1, record = [],record_interval = 100,data_test = None,weights_test=None,l1_custom=None,l1b_custom=None,M_AIS=10,n_betas_AIS=10000):
-
+            update_betas =None, record_acceptance = None, shuffle_data = True,epsilon=  1e-6, verbose = 1, record = [],record_interval = 100,data_test = None,weights_test=None,l1_custom=None,l1b_custom=None,M_AIS=10,n_betas_AIS=10000, PiningPos = None):
+        
+        self.PiningPos = PiningPos
+        
         self.batch_size = batch_size
         self.optimizer  = optimizer
         if self.hidden in ['Gaussian','ReLU','ReLU+']:
@@ -721,6 +723,9 @@ class RBM(pgm.PGM):
                     self.gradient['W'] += db_dw[np.newaxis,:] * self.gradient['hlayer']['b'][:,np.newaxis] + da_dw * self.gradient['hlayer']['a'][:,np.newaxis]
 
         self.gradient['W'] = saturate(self.gradient['W'],1.0)
+        
+        if self.PiningPos is not None:
+            self.gradient['W'][self.PiningPos] *=0
         
         if self.tmp_l2_fields>0:
             self.gradient['vlayer']['fields'] -= self.tmp_l2_fields *  self.vlayer.fields
