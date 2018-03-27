@@ -40,7 +40,10 @@ def peakWidth(weight,plot=False,method='Spline'):
                 weightsAligned.append(np.roll(weight[i],roll_val))
                 spline.append(UnivariateSpline(np.arange(len(weight[i])),abs(weightsAligned[i])-np.max(abs(weightsAligned[i]))/2,s=0))
                 roots.append(spline[i].roots())
-                FWHM.append(abs(roots[i][0]-roots[i][1]))
+                if np.size(roots[i])<2:
+                    FWHM.append(0)
+                else:
+                    FWHM.append(abs(roots[i][0]-roots[i][1]))
 
             if plot is True:
                 #Show the roots for visual verification
@@ -59,7 +62,10 @@ def peakWidth(weight,plot=False,method='Spline'):
                 weightsAligned.append(np.roll(weight[i],roll_val))
                 spline.append(UnivariateSpline(np.arange(len(weight[i])),abs(weightsAligned[i])-np.max(abs(weightsAligned[i]))/2,s=0))
                 roots.append(spline[i].roots())
-                FWHM = (abs(roots[i][0]-roots[i][1]))
+                if np.size(roots[i])<2:
+                    FWHM.append(0)
+                else:
+                    FWHM.append(abs(roots[i][0]-roots[i][1]))
 
             if plot is True:
                 #Show the roots for visual verification
