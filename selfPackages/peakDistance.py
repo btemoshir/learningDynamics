@@ -13,6 +13,6 @@
 
 def peakDistance(pos1,pos2,systemSize):
     if abs(pos1-pos2) > systemSize/2:
-        return pos1+pos2-systemSize
+        return systemSize - abs(pos1-pos2)
     else:
         return abs(pos1-pos2)
