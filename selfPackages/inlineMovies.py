@@ -6,15 +6,14 @@
     
     Author: Moshir Harsh, moshir.harsh@ens.fr
     Date: Feb 12, 2018
-    
+    ort numpy as np
+import matplotlib.pyplot as plt
+import matplotlib
+from matplotlib import animation, rc
     TODO:
     Add saving option
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib
-from matplotlib import animation, rc
 from IPython.display import HTML
 
 # initialization function: plot the background of each frame
